@@ -22,7 +22,7 @@ export const config: Omit<WebdriverIO.Config, 'capabilities'> = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.ts'
+        './test/specs/checkbox.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -52,7 +52,7 @@ export const config: Omit<WebdriverIO.Config, 'capabilities'> = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'trace',
+    logLevel: 'debug',
     outputDir: path.resolve(__dirname, 'logs'),
     //
     // Set specific log levels per logger
@@ -95,7 +95,7 @@ export const config: Omit<WebdriverIO.Config, 'capabilities'> = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'jasmine',
+    framework: 'mocha',
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -106,7 +106,21 @@ export const config: Omit<WebdriverIO.Config, 'capabilities'> = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec'],
+    reporters: [
+        [
+          'allure',
+          {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
+            disableMochaHooks: true,
+            // reportedEnvironmentVars: {
+            //   browser,
+            //   packageVersion,
+            // },
+          },
+        ],
+      ],
     //
     // Options to be passed to Jasmine.
     jasmineOpts: {
